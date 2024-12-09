@@ -13,7 +13,7 @@ const RootFontSize: React.FC = () => {
     <p className="flex items-center gap-x-2">
       <RootFontSizeTip />
       <span className="text-nowrap">Root Font Size</span>
-      <Input className="w-[5.5ch] " type="number" defaultValue={16} />
+      <Input className="no-spinner w-[5.5ch]" type="number" defaultValue={16} />
       <span>Pixel</span>
     </p>
   );
