@@ -20,20 +20,23 @@ interface ConversionHistoryProps {
 
 const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
   return (
-    <div className="w-max flex flex-col gap-y-3">
-      <span className="w-max px-4 py-1 font-light border border-foreground rounded-lg uppercase">
+    <div className="w-[100%] flex flex-col gap-y-3">
+      <span className="w-max px-4 m-4 py-1 font-light border border-foreground rounded-lg uppercase">
         History
       </span>
-      <section className="flex flex-col gap-y-4">
-        {props.conversionHistoryList.map((item) => (
-          <div className="flex flex-col gap-y-3">
+      <section className="flex flex-col gap-y-2">
+        {props.conversionHistoryList.map((item, index) => (
+          <div
+            key={index}
+            className="p-4 flex flex-col gap-y-3 border-t border-t-foreground [&:first-child]:py-0 [&:first-child]:border-t-0"
+          >
             <div className="flex items-center justify-between gap-x-3">
               <ConversionItem unit={item.fromUnit} value={item.from} />
-              <MoveRight size={30} />
+              <MoveRight size={20} />
               <ConversionItem unit={item.toUnit} value={item.to} />
             </div>
             <p className="text-foreground font-light">
-              Root Font Size:{" "}
+              Root Font Size:
               <span className="font-bold">{item.rootFontSize}</span>
             </p>
           </div>
@@ -45,10 +48,10 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
 
 const ConversionItem: React.FC<ConversionItemProps> = (props) => {
   return (
-    <div className="p-2 flex items-center gap-x-2 border border-foreground rounded-md">
+    <div className="py-1 px-2 flex items-center gap-x-2 border border-foreground rounded-md">
       <span className="font-bold uppercase">{props.value}</span>
       <span className="font-bold uppercase">{props.unit}</span>
-      <Button variant="outline">
+      <Button variant="outline" className="px-3 py-1 shadow-none">
         <Copy size={12} />
       </Button>
     </div>
