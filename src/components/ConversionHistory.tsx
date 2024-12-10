@@ -7,11 +7,17 @@ interface ConversionUnitsProps {
   to: number;
   toUnit: string;
   rootFontSize: string;
+  baseFontSize: string;
 }
 
 interface ConversionItemProps {
   value: number;
   unit: string;
+}
+
+interface BaseFontSizeProps {
+  baseFontSize: string;
+  baseType: "Root" | "Base";
 }
 
 interface ConversionHistoryProps {
@@ -35,10 +41,10 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
               <MoveRight size={20} />
               <ConversionItem unit={item.toUnit} value={item.to} />
             </div>
-            <p className="text-foreground font-light">
-              Root Font Size:
-              <span className="font-bold">{item.rootFontSize}</span>
-            </p>
+            <div className="flex items-center justify-center gap-x-8">
+              <BaseFontSize baseFontSize={item.rootFontSize} baseType="Root" />
+              <BaseFontSize baseFontSize={item.baseFontSize} baseType="Base" />
+            </div>
           </div>
         ))}
       </section>
@@ -46,16 +52,21 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
   );
 };
 
-const ConversionItem: React.FC<ConversionItemProps> = (props) => {
-  return (
-    <div className="py-1 px-2 flex items-center gap-x-2 border border-foreground rounded-md">
-      <span className="font-bold uppercase">{props.value}</span>
-      <span className="font-bold uppercase">{props.unit}</span>
-      <Button variant="outline" className="px-3 py-1 shadow-none">
-        <Copy size={12} />
-      </Button>
-    </div>
-  );
-};
+const ConversionItem: React.FC<ConversionItemProps> = (props) => (
+  <div className="py-1 px-2 flex items-center gap-x-2 border border-foreground rounded-md">
+    <span className="font-bold uppercase">{props.value}</span>
+    <span className="font-bold uppercase">{props.unit}</span>
+    <Button variant="outline" className="px-3 py-1 shadow-none">
+      <Copy size={12} />
+    </Button>
+  </div>
+);
+
+const BaseFontSize: React.FC<BaseFontSizeProps> = (props) => (
+  <p className="px-2 py-1 text-sm text-background font-light bg-foreground rounded-md">
+    {props.baseType} Font Size:{" "}
+    <span className="font-semibold">{props.baseFontSize}</span>
+  </p>
+);
 
 export default ConversionHistory;
