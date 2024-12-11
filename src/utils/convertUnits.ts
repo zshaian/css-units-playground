@@ -1,4 +1,4 @@
-import type { ValidUnits } from "@/types";
+import type { ConvertionInfoKeys, ValidUnits } from "@/types";
 
 interface ConvertUnitProps {
   value: number;
@@ -74,7 +74,7 @@ const convertEmToRem = (
 };
 
 const convertionMap: Record<
-  string,
+  ConvertionInfoKeys,
   (value: number, baseFontSize: number, referenceFontSize?: number) => number
 > = {
   "px->rem": convertPxToRemOrEm,
