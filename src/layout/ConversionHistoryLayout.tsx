@@ -15,6 +15,7 @@ const ConversionHistoryLayout: React.FC = () => {
       to: 80,
       toUnit: "px",
       rootFontSize: "16px",
+      baseFontSize: "16px",
     },
     {
       from: 5,
@@ -22,6 +23,7 @@ const ConversionHistoryLayout: React.FC = () => {
       to: 80,
       toUnit: "px",
       rootFontSize: "16px",
+      baseFontSize: "16px",
     },
     {
       from: 5,
@@ -29,6 +31,7 @@ const ConversionHistoryLayout: React.FC = () => {
       to: 80,
       toUnit: "px",
       rootFontSize: "16px",
+      baseFontSize: "16px",
     },
     {
       from: 5,
@@ -36,6 +39,7 @@ const ConversionHistoryLayout: React.FC = () => {
       to: 80,
       toUnit: "px",
       rootFontSize: "16px",
+      baseFontSize: "16px",
     },
     {
       from: 5,
@@ -43,6 +47,7 @@ const ConversionHistoryLayout: React.FC = () => {
       to: 80,
       toUnit: "px",
       rootFontSize: "16px",
+      baseFontSize: "16px",
     },
     {
       from: 5,
@@ -50,6 +55,31 @@ const ConversionHistoryLayout: React.FC = () => {
       to: 80,
       toUnit: "px",
       rootFontSize: "16px",
+      baseFontSize: "16px",
+    },
+    {
+      from: 5,
+      fromUnit: "rem",
+      to: 80,
+      toUnit: "px",
+      rootFontSize: "16px",
+      baseFontSize: "16px",
+    },
+    {
+      from: 5,
+      fromUnit: "rem",
+      to: 80,
+      toUnit: "px",
+      rootFontSize: "16px",
+      baseFontSize: "16px",
+    },
+    {
+      from: 5,
+      fromUnit: "rem",
+      to: 80,
+      toUnit: "px",
+      rootFontSize: "16px",
+      baseFontSize: "16px",
     },
   ];
 
