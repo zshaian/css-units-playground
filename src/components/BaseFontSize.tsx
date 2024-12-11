@@ -1,26 +1,34 @@
-import { useUnitStore } from "@/store/useUnitStore";
 import FontSizeTip from "./FontSizeTip";
 
 import { Input } from "./ui/input";
 
-const BaseFontSize: React.FC = () => {
-  const { baseFontSize, changeBaseFontSize } = useUnitStore();
-  const parentFontSizeTipDescription =
-    "Set the base font size (default: 16px). This value is used to calculate relative CSS units like REM and EM during conversions.";
-  const handleChangeBaseFontSizeValue = (newBaseFontSize: number) =>
-    changeBaseFontSize(newBaseFontSize || 0);
+interface BaseFontSizeProps {
+  name:string;
+  tipDescription: string;
+  componentLabel:string;
+  baseFontSize: number | string;
+  handleChangeBaseFontSize: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
+}
 
+const BaseFontSize: React.FC<BaseFontSizeProps> = ({
+  name,
+  tipDescription,
+  componentLabel,
+  baseFontSize,
+  handleChangeBaseFontSize,
+}) => {
   return (
     <p className="flex items-center gap-x-2">
-      <FontSizeTip tipDescripion={parentFontSizeTipDescription} />
-      <span className="text-nowrap">Base Font Size</span>
-      <Input
+      <FontSizeTip tipDescripion={tipDescription} />
+      <span className="text-nowrap">{componentLabel} Font Size</span>
+      <Input    
+        name={name}
         className="no-spinner w-[5.5ch]"
         type="number"
-        defaultValue={baseFontSize}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          handleChangeBaseFontSizeValue(parseFloat(event.target.value))
-        }
+        value={(baseFontSize === 0) ? "" : baseFontSize}
+        onChange={handleChangeBaseFontSize}
       />
       <span>Pixel</span>
     </p>
