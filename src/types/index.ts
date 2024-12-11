@@ -3,9 +3,9 @@ type ValidUnits = "rem" | "em" | "%" | "px";
 interface UnitState {
   fromUnitValue: number;
   fromUnit: ValidUnits;
-  toUnitValue: number; 
+  toUnitValue: number;
   toUnit: ValidUnits;
-  rootFontSize: number; 
+  rootFontSize: number;
   baseFontSize: number;
 }
 
@@ -17,7 +17,16 @@ interface ConvertionInfoValue {
 }
 
 type NoConvertionKeys = `rem->rem` | `em->em` | `px->px` | `%->%`;
-type ConvertionInfoKeys = Exclude<`${ValidUnits}->${ValidUnits}`,NoConvertionKeys>; 
-type ConvertionInfoProps = Record<ConvertionInfoKeys,ConvertionInfoValue>;
+type ConvertionInfoKeys = Exclude<
+  `${ValidUnits}->${ValidUnits}`,
+  NoConvertionKeys
+>;
+type ConvertionInfoProps = Record<ConvertionInfoKeys, ConvertionInfoValue>;
 
-export type { UnitState,ConvertionInfoProps,ConvertionInfoValue, ValidUnits };
+export type {
+  UnitState,
+  ConvertionInfoProps,
+  ConvertionInfoKeys,
+  ConvertionInfoValue,
+  ValidUnits,
+};
