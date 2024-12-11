@@ -1,3 +1,4 @@
+import type { ValidUnits } from "@/types";
 import {
   Select,
   SelectTrigger,
@@ -6,14 +7,30 @@ import {
   SelectItem,
 } from "./ui/select";
 
-const UnitSelect: React.FC = () => {
+interface UnitSelectProps {
+  name:string;
+  selectedItem: ValidUnits;
+  selectItems: ValidUnits[];
+  handleUnitChange: (value: ValidUnits) => void;
+}
+
+const UnitSelect: React.FC<UnitSelectProps> = ({
+  name,
+  selectItems,
+  selectedItem,
+  handleUnitChange,
+}) => {
   return (
-    <Select>
+    <Select name={name} value={selectedItem} onValueChange={handleUnitChange}>
       <SelectTrigger>
-        <SelectValue placeholder="CSS Unit" />
+        <SelectValue>{selectedItem.toUpperCase()}</SelectValue>
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="px">PX</SelectItem>
+        {selectItems.map((item) => (
+          <SelectItem key={item} value={item}>
+            {item}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
