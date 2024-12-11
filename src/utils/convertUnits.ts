@@ -26,22 +26,33 @@ const convertPercentToPx = (
 const convertPxToPercent = (pxValue: number, baseFontSize: number): number =>
   (pxValue / baseFontSize) * 100;
 
-const convertRemOrEmToPercent = (
-  remOrEmValue: number,
-  baseFontSize: number,
+const convertRemToPercent = (
+  remValue: number,
+  rootFontSize: number,
   referenceFontSize?: number
 ): number => {
   if (!isNumber(referenceFontSize)) return 0;
-  return ((remOrEmValue * referenceFontSize) / baseFontSize) * 100;
+  return ((remValue * rootFontSize) / referenceFontSize) * 100;
 };
 
-const convertPercentToRemOrEm = (
+const convertPercentToRem = (
   percentValue: number,
-  baseFontSize: number,
+  rootFontSize: number,
   referenceFontSize?: number
 ): number => {
   if (!isNumber(referenceFontSize)) return 0;
-  return (percentValue * baseFontSize) / (100 * referenceFontSize);
+  return (percentValue * referenceFontSize) / (100 * rootFontSize);
+};
+
+const convertEmToPercent = (emValue: number, baseFontSize: number): number => {
+  return ((emValue * baseFontSize) / baseFontSize) * 100;
+};
+
+const convertPercentToEm = (
+  percentValue: number,
+  baseFontSize: number
+): number => {
+  return (percentValue * baseFontSize) / (100 * baseFontSize);
 };
 
 const convertRemToEm = (
@@ -50,7 +61,7 @@ const convertRemToEm = (
   referenceFontSize?: number
 ): number => {
   if (!isNumber(referenceFontSize)) return 0;
-  return (remValue * baseFontSize) / referenceFontSize;
+  return remValue * (baseFontSize / referenceFontSize);
 };
 
 const convertEmToRem = (
@@ -59,7 +70,7 @@ const convertEmToRem = (
   referenceFontSize?: number
 ): number => {
   if (!isNumber(referenceFontSize)) return 0;
-  return (emValue * baseFontSize) / referenceFontSize;
+  return emValue * (baseFontSize / referenceFontSize);
 };
 
 const convertionMap: Record<
@@ -72,11 +83,16 @@ const convertionMap: Record<
   "em->px": convertRemOrEmToPx,
   "%->px": convertPercentToPx,
   "px->%": convertPxToPercent,
-  "rem->%": convertRemOrEmToPercent,
-  "%->rem": convertPercentToRemOrEm,
+  "rem->%": convertRemToPercent,
+  "%->rem": convertPercentToRem,
+  "em->%": convertEmToPercent,
+  "%->em": convertPercentToEm,
   "em->rem": convertEmToRem,
   "rem->em": convertRemToEm,
 };
+
+const roundownToTwoDecimals = (value: number): number =>
+  Math.round(value * 100) / 100;
 
 const convertUnits = ({
   value,
@@ -99,14 +115,18 @@ const convertUnits = ({
     case "px->%": {
       return convertionMap[convertionType](value, baseFontSize);
     }
+    case "em->%":
+    case "%->em": {
+      return convertionMap[convertionType](value, baseFontSize);
+    }
     case "rem->%":
     case "%->rem": {
-      return convertionMap[convertionType](value, rootFontSize, baseFontSize);
+      return convertionMap[convertionType](value, rootFontSize,baseFontSize);
     }
     case "em->rem": {
       return convertionMap[convertionType](value, baseFontSize, rootFontSize);
     }
-    case "rem->rem": {
+    case "rem->em": {
       return convertionMap[convertionType](value, rootFontSize, baseFontSize);
     }
     default:
@@ -114,14 +134,23 @@ const convertUnits = ({
   }
 };
 
-export { convertUnits };
+export { convertUnits, roundownToTwoDecimals };
 
 // conversion list
-// rem/em -> px
-// px -> rem/em
-// % -> px
+// px -> rem
+// rem -> px
+
+// px -> em 
+// em -> px
+
 // px -> %
-// rem/em -> %
-// % -> rem/em
+// % -> px
+
+// rem -> %
+// % -> rem
+
 // rem -> em
 // em -> rem
+
+// em -> %
+// % -> em
