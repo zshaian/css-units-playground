@@ -1,6 +1,5 @@
-import { Copy } from "lucide-react";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import CopyButton from "./CopyButton";
 
 interface UnitInputProps {
   name:string;
@@ -17,9 +16,7 @@ const UnitInput:React.FC<UnitInputProps> = ({name,unitValue,handleUnitValueChang
         onChange={handleUnitValueChange}
         className="no-spinner w-[15rem] border-none font-semibold text-2xl md:text-2xl"
       />
-      <Button variant="ghost">
-        <Copy size={30} />
-      </Button>
+      <CopyButton value={unitValue.toString()} />
     </div>
 );
 

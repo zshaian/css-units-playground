@@ -1,7 +1,7 @@
-import { Copy, MoveRight } from "lucide-react";
-import { Button } from "./ui/button";
+import { MoveRight } from "lucide-react";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import type { UnitState } from "@/types";
+import CopyButton from "./CopyButton";
 
 interface ConversionItemProps {
   value: number;
@@ -52,9 +52,7 @@ const ConversionItem: React.FC<ConversionItemProps> = (props) => (
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
     <span className="font-bold uppercase">{props.unit}</span>
-    <Button variant="outline" className="px-3 py-1 shadow-none">
-      <Copy size={12} />
-    </Button>
+    <CopyButton value={props.value.toString()} />
   </div>
 );
 
