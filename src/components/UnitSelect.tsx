@@ -28,7 +28,7 @@ const UnitSelect: React.FC<UnitSelectProps> = ({
       <SelectContent>
         {selectItems.map((item) => (
           <SelectItem key={item} value={item}>
-            {item}
+            {item.toUpperCase()}
           </SelectItem>
         ))}
       </SelectContent>
