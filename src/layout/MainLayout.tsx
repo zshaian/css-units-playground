@@ -5,10 +5,8 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = (props) => {
   return (
     <>
-      <main className="flex md:flex-row max-sm:flex-col max-sm:gap-y-8">
-        <section className="flex flex-col items-center justify-center flex-1 gap-y-8">
+      <main className="flex flex-col gap-y-8 lg:flex-row">
           {props.children}
-        </section>
       </main>
     </>
   );
