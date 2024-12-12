@@ -15,7 +15,7 @@ const ConversionHistoryLayout: React.FC<ConversionHistoryLayoutProps> = (
 
   if (isDesktop) {
     return (
-      <ScrollArea className="h-[100vh] border-r border-foreground">
+      <ScrollArea className="h-[100vh] border-r border-input shadow-sm">
         <section>{props.children}</section>
       </ScrollArea>
     );
@@ -24,7 +24,7 @@ const ConversionHistoryLayout: React.FC<ConversionHistoryLayoutProps> = (
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="w-max m-4">
+        <Button variant="outline" className="w-max absolute right-5 top-5">
           History
         </Button>
       </DrawerTrigger>
