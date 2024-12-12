@@ -1,13 +1,14 @@
 import { Copy, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 
-interface ConversionUnitsProps {
-  from: number;
+export interface ConversionUnitsProps {
+  fromUnitValue: number;
   fromUnit: string;
-  to: number;
+  toUnitValue: number;
   toUnit: string;
-  rootFontSize: string;
-  baseFontSize: string;
+  rootFontSize: number;
+  baseFontSize: number;
 }
 
 interface ConversionItemProps {
@@ -16,7 +17,7 @@ interface ConversionItemProps {
 }
 
 interface BaseFontSizeProps {
-  baseFontSize: string;
+  baseFontSize: number;
   baseType: "Root" | "Base";
 }
 
@@ -26,7 +27,7 @@ interface ConversionHistoryProps {
 
 const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
   return (
-    <div className="w-[100%] flex flex-col gap-y-3">
+    <div className="w-[100%] lg:w-[351px] flex flex-col gap-y-3">
       <span className="w-max px-4 m-4 py-1 font-light border border-foreground rounded-lg uppercase">
         History
       </span>
@@ -36,10 +37,10 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
             key={index}
             className="p-4 flex flex-col gap-y-3 border-t border-t-foreground [&:first-child]:py-0 [&:first-child]:border-t-0"
           >
-            <div className="flex items-center justify-between gap-x-3">
-              <ConversionItem unit={item.fromUnit} value={item.from} />
+            <div className="flex items-center justify-between">
+              <ConversionItem unit={item.fromUnit} value={item.fromUnitValue} />
               <MoveRight size={20} />
-              <ConversionItem unit={item.toUnit} value={item.to} />
+              <ConversionItem unit={item.toUnit} value={item.toUnitValue} />
             </div>
             <div className="flex items-center justify-center gap-x-8">
               <BaseFontSize baseFontSize={item.rootFontSize} baseType="Root" />
@@ -54,7 +55,10 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
 
 const ConversionItem: React.FC<ConversionItemProps> = (props) => (
   <div className="py-1 px-2 flex items-center gap-x-2 border border-foreground rounded-md">
-    <span className="font-bold uppercase">{props.value}</span>
+    <ScrollArea className="max-w-[4ch] py-2">
+      <span className="inline-block font-bold uppercase">{props.value}</span>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
     <span className="font-bold uppercase">{props.unit}</span>
     <Button variant="outline" className="px-3 py-1 shadow-none">
       <Copy size={12} />
@@ -65,7 +69,7 @@ const ConversionItem: React.FC<ConversionItemProps> = (props) => (
 const BaseFontSize: React.FC<BaseFontSizeProps> = (props) => (
   <p className="px-2 py-1 text-sm text-background font-light bg-foreground rounded-md">
     {props.baseType} Font Size:{" "}
-    <span className="font-semibold">{props.baseFontSize}</span>
+    <span className="font-semibold">{props.baseFontSize}PX</span>
   </p>
 );
 
