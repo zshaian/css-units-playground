@@ -10,9 +10,8 @@ const ThemeToggle:React.FC = () => {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline">
+                <Button variant="outline" className="rounded-full h-[40px] w-[40px]">
                     {(theme === "light") ? <Sun size={20} /> : <Moon size={20} />}
-                    <p className="inline-block">{theme.toUpperCase()}</p>
                     <span className="sr-only">Toggle theme</span>
                 </Button>
             </DropdownMenuTrigger>
