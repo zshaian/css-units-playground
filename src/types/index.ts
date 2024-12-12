@@ -1,3 +1,9 @@
+type Theme = "dark" | "light" | "system";
+type ThemeProviderState = [Theme,React.Dispatch<React.SetStateAction<Theme>>]
+interface ThemeProviderProps {
+  children: React.ReactNode;
+}
+
 type ValidUnits = "rem" | "em" | "%" | "px";
 
 interface UnitState {
@@ -29,4 +35,7 @@ export type {
   ConvertionInfoKeys,
   ConvertionInfoValue,
   ValidUnits,
+  ThemeProviderProps,
+  ThemeProviderState,
+  Theme,
 };
