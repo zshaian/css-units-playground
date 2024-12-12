@@ -1,4 +1,4 @@
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Drawer, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -28,7 +28,11 @@ const ConversionHistoryLayout: React.FC<ConversionHistoryLayoutProps> = (
           History
         </Button>
       </DrawerTrigger>
-      <DrawerContent>{props.children}</DrawerContent>
+      <DrawerContent>
+        <DrawerTitle className="sr-only">History</DrawerTitle>
+        <DrawerDescription className="sr-only">this is a collection of conversion history</DrawerDescription>
+        {props.children}
+      </DrawerContent>
     </Drawer>
   );
 };
