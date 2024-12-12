@@ -1,4 +1,4 @@
-import { ConvertionInfoProps, ConvertionInfoValue, ValidUnits } from "@/types";
+import { ConvertionInfoKeys, ConvertionInfoProps, ConvertionInfoValue, ValidUnits } from "@/types";
 
 interface getConvertionInfoProps {
   from: ValidUnits;
@@ -88,7 +88,7 @@ const getConvertionInfo = ({
       calculation: "(100% * 16px) / (100 * 16px) = 1em",
     },
   };
-  return convertionInfo[`${from}->${to}`];
+  return convertionInfo[(`${from}->${to}`) as ConvertionInfoKeys];
 };
 
 export { getConvertionInfo };
