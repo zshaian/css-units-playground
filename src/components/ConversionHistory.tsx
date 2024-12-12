@@ -20,7 +20,7 @@ interface ConversionHistoryProps {
 const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
   return (
     <div className="w-[100%] lg:w-[351px] flex flex-col gap-y-3">
-      <span className="w-max px-4 m-4 py-1 font-light border border-foreground rounded-lg uppercase">
+      <span className="w-max px-4 m-4 py-1 font-light border border-input rounded-lg uppercase">
         History
       </span>
       <section className="flex flex-col gap-y-2">
@@ -46,7 +46,7 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
 };
 
 const ConversionItem: React.FC<ConversionItemProps> = (props) => (
-  <div className="py-1 px-2 flex items-center gap-x-2 border border-foreground rounded-md">
+  <div className="py-1 px-2 flex items-center gap-x-2 border border-input rounded-md">
     <ScrollArea className="max-w-[4ch] py-2">
       <span className="inline-block font-bold uppercase">{props.value}</span>
       <ScrollBar orientation="horizontal" />
