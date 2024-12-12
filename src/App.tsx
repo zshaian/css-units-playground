@@ -16,6 +16,7 @@ import { useConversionHistory } from "./hooks/useConversionHistory";
 import ThemeProvider from "./components/theme/ThemeProvider";
 import Navbar from "./components/Navbar";
 import NavbarLayout from "./layout/NavbarLayout";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   const [unitState, setUnitState] = useState<UnitState>(INITIAL_UNIT_STATE_VALUE);
@@ -147,6 +148,7 @@ function App() {
         <ConversionInfo {...getConvertionInfo({from:unitState.fromUnit,to:unitState.toUnit})} />
         </section>
       </MainLayout>
+      <Toaster />
     </>
   );
 }
