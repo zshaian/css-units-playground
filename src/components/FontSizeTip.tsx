@@ -6,19 +6,15 @@ import {
   TooltipContent,
 } from "./ui/tooltip";
 
-import { Button } from "./ui/button";
-
 interface FontSizeTipProps {
   tipDescripion: string;
 }
 
 const FontSizeTip: React.FC<FontSizeTipProps> = (props) => (
-  <TooltipProvider>
+  <TooltipProvider delayDuration={200}>
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost">
-          <Info size={16} />
-        </Button>
+          <Info size={16} className="cursor-help" />
       </TooltipTrigger>
       <TooltipContent className="px-4 py-2 bg-foreground text-background rounded-md">
         <p>{props.tipDescripion}</p>
