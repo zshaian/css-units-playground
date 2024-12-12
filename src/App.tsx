@@ -13,6 +13,9 @@ import { getConvertionInfo } from "./utils/convertionInfo";
 import ConversionHistoryLayout from "./layout/ConversionHistoryLayout";
 import ConversionHistory from "./components/ConversionHistory";
 import { useConversionHistory } from "./hooks/useConversionHistory";
+import ThemeProvider from "./components/theme/ThemeProvider";
+import Navbar from "./components/Navbar";
+import NavbarLayout from "./layout/NavbarLayout";
 
 function App() {
   const [unitState, setUnitState] = useState<UnitState>(INITIAL_UNIT_STATE_VALUE);
@@ -79,7 +82,12 @@ function App() {
         <ConversionHistoryLayout>
           <ConversionHistory conversionHistoryList={conversionHistory} />
         </ConversionHistoryLayout>
-        <section className="flex flex-col items-center justify-center flex-1 gap-y-8">
+        <section className="flex flex-col items-center flex-1 gap-y-8">
+          <NavbarLayout>
+            <ThemeProvider>
+              <Navbar />
+            </ThemeProvider>
+          </NavbarLayout>
         <div className="flex gap-x-8 max-sm:flex-col max-sm:gap-y-8">
           <BaseFontSize
             name="root-font-size-input"
