@@ -10,11 +10,14 @@ import type { UnitState, ValidUnits } from "./types";
 import { convertUnits, roundownToTwoDecimals } from "./utils/convertUnits";
 import { INITIAL_UNIT_STATE_VALUE } from "./constants/initialState";
 import { getConvertionInfo } from "./utils/convertionInfo";
+import ConversionHistoryLayout from "./layout/ConversionHistoryLayout";
+import ConversionHistory from "./components/ConversionHistory";
+import { useConversionHistory } from "./hooks/useConversionHistory";
 
 function App() {
   const [unitState, setUnitState] = useState<UnitState>(INITIAL_UNIT_STATE_VALUE);
+  const [conversionHistory,addNewHistoryConversion] = useConversionHistory();
   const validUnitList: ValidUnits[] = ["px", "rem", "em", "%"];
-  const conversionInfo = getConvertionInfo({from:unitState.fromUnit,to:unitState.toUnit});
 
   const handleBaseFontSizeChange = (
     value: string,
@@ -39,7 +42,7 @@ function App() {
     setUnitState((previousState) => {
       const convertedUnitValue = roundownToTwoDecimals(
         convertUnits({
-          value: parsedNewUnitValue,
+         value: parsedNewUnitValue,
           baseFontSize: previousState.baseFontSize,
           rootFontSize: previousState.rootFontSize,
           fromUnit: isFromUnitValue
@@ -73,6 +76,10 @@ function App() {
   return (
     <>
       <MainLayout>
+        <ConversionHistoryLayout>
+          <ConversionHistory conversionHistoryList={conversionHistory} />
+        </ConversionHistoryLayout>
+        <section className="flex flex-col items-center justify-center flex-1 gap-y-8">
         <div className="flex gap-x-8 max-sm:flex-col max-sm:gap-y-8">
           <BaseFontSize
             name="root-font-size-input"
@@ -128,8 +135,9 @@ function App() {
             handleUnitChange={(value) => handleUnitChange(value, "toUnit")}
           />
         </div>
-        <SaveToHistoryButton />
-        <ConversionInfo {...conversionInfo} />
+        <SaveToHistoryButton handleSaveToHistoryEvent={() => addNewHistoryConversion(unitState)} />
+        <ConversionInfo {...getConvertionInfo({from:unitState.fromUnit,to:unitState.toUnit})} />
+        </section>
       </MainLayout>
     </>
   );
