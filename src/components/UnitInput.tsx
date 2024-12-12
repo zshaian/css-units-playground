@@ -15,7 +15,7 @@ const UnitInput:React.FC<UnitInputProps> = ({name,unitValue,handleUnitValueChang
         name={name}
         value={(unitValue === 0) ? "" : unitValue}
         onChange={handleUnitValueChange}
-        className="no-spinner w-[15rem] border-none"
+        className="no-spinner w-[15rem] border-none font-semibold text-2xl md:text-2xl"
       />
       <Button variant="ghost">
         <Copy size={30} />
