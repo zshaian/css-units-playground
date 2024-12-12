@@ -2,7 +2,7 @@ import type { ConvertionInfoValue } from "@/types";
 
 const ConversionInfo: React.FC<ConvertionInfoValue> = (props) => {
   return (
-    <div className="w-max p-4 flex flex-col items-center gap-y-3 border border-foreground rounded-md">
+    <div className="w-max p-4 flex flex-col items-center gap-y-3 border border-input rounded-md">
       <p className="flex items-center gap-x-3">
         Formula in converting
         <span className="px-2 py-1 bg-foreground text-background rounded-md uppercase">

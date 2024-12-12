@@ -27,7 +27,7 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
         {props.conversionHistoryList.map((item, index) => (
           <div
             key={index}
-            className="p-4 flex flex-col gap-y-3 border-t border-t-foreground [&:first-child]:py-0 [&:first-child]:border-t-0"
+            className="p-4 flex flex-col gap-y-3 border-t border-t-input [&:first-child]:py-0 [&:first-child]:border-t-0"
           >
             <div className="flex items-center justify-between">
               <ConversionItem unit={item.fromUnit} value={item.fromUnitValue} />
