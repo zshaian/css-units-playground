@@ -11,7 +11,7 @@ interface ConversionHistoryLayoutProps {
 const ConversionHistoryLayout: React.FC<ConversionHistoryLayoutProps> = (
   props
 ) => {
-  const isDesktop = useMediaQuery("(min-width:768px)");
+  const isDesktop = useMediaQuery("(min-width:1024px)");
 
   if (isDesktop) {
     return (
