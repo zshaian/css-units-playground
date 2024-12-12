@@ -1,15 +1,7 @@
 import { Copy, MoveRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
-
-export interface ConversionUnitsProps {
-  fromUnitValue: number;
-  fromUnit: string;
-  toUnitValue: number;
-  toUnit: string;
-  rootFontSize: number;
-  baseFontSize: number;
-}
+import type { UnitState } from "@/types";
 
 interface ConversionItemProps {
   value: number;
@@ -22,7 +14,7 @@ interface BaseFontSizeProps {
 }
 
 interface ConversionHistoryProps {
-  conversionHistoryList: ConversionUnitsProps[];
+  conversionHistoryList: UnitState[];
 }
 
 const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
