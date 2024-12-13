@@ -20,8 +20,10 @@ import { Toaster } from "./components/ui/toaster";
 import { useToast } from "./hooks/useToast";
 
 function App() {
-  const [unitState, setUnitState] = useState<UnitState>(INITIAL_UNIT_STATE_VALUE);
-  const [conversionHistory,addNewHistoryConversion] = useConversionHistory();
+  const [unitState, setUnitState] = useState<UnitState>(
+    INITIAL_UNIT_STATE_VALUE
+  );
+  const [conversionHistory, addNewHistoryConversion] = useConversionHistory();
   const { toast } = useToast();
   const validUnitList: ValidUnits[] = ["px", "rem", "em", "%"];
 
@@ -31,8 +33,8 @@ function App() {
   ) => {
     const parsedNewBaseFontSize = parseFloat(value);
 
-    if(isNaN(parsedNewBaseFontSize)){
-      setUnitState((previousState) => ({...previousState,[name]:""}))
+    if (isNaN(parsedNewBaseFontSize)) {
+      setUnitState((previousState) => ({ ...previousState, [name]: "" }));
       return;
     }
 
@@ -50,8 +52,12 @@ function App() {
   ) => {
     const parsedNewUnitValue = parseFloat(newUnitValue);
 
-    if(isNaN(parsedNewUnitValue)){ 
-      setUnitState((previousState) => ({...previousState,fromUnitValue:"",toUnitValue:""}));
+    if (isNaN(parsedNewUnitValue)) {
+      setUnitState((previousState) => ({
+        ...previousState,
+        fromUnitValue: "",
+        toUnitValue: "",
+      }));
       return;
     }
 
@@ -60,9 +66,15 @@ function App() {
     setUnitState((previousState) => {
       const convertedUnitValue = roundownToTwoDecimals(
         convertUnits({
-         value: parsedNewUnitValue,
-          baseFontSize: (previousState.baseFontSize === "") ? 0 : previousState.baseFontSize as number,
-          rootFontSize: (previousState.rootFontSize === "") ? 0 : previousState.rootFontSize as number,
+          value: parsedNewUnitValue,
+          baseFontSize:
+            previousState.baseFontSize === ""
+              ? 0
+              : (previousState.baseFontSize as number),
+          rootFontSize:
+            previousState.rootFontSize === ""
+              ? 0
+              : (previousState.rootFontSize as number),
           fromUnit: isFromUnitValue
             ? previousState.fromUnit
             : previousState.toUnit,
@@ -70,7 +82,7 @@ function App() {
             ? previousState.toUnit
             : previousState.fromUnit,
         })
-      ); 
+      );
       return {
         ...previousState,
         [name]: parsedNewUnitValue,
@@ -94,13 +106,15 @@ function App() {
   const handleSaveToHistoryConversion = () => {
     try {
       addNewHistoryConversion(unitState);
-      toast({description:"Conversion Value is Added to History"})
-    }
-    catch(error){
+      toast({ description: "Conversion Value is Added to History" });
+    } catch (error) {
       console.error(error);
-      toast({description:"Failed to Save Conversion Value to History.",variant:"destructive"});
+      toast({
+        description: "Failed to Save Conversion Value to History.",
+        variant: "destructive",
+      });
     }
-  }
+  };
 
   return (
     <>
@@ -114,63 +128,70 @@ function App() {
               <Navbar />
             </ThemeProvider>
           </NavbarLayout>
-        <div className="flex gap-x-8 max-sm:flex-col max-sm:gap-y-8">
-          <BaseFontSize
-            name="root-font-size-input"
-            tipDescription="Set the root font size (default: 16px). This value is used to calculate relative CSS units like REM and EM during conversions."
-            componentLabel="Root"
-            baseFontSize={unitState.rootFontSize}
-            handleChangeBaseFontSize={(event) =>
-              handleBaseFontSizeChange(event.target.value, "rootFontSize")
-            }
+          <div className="flex gap-x-8 max-sm:flex-col max-sm:gap-y-8">
+            <BaseFontSize
+              name="root-font-size-input"
+              tipDescription="Set the root font size (default: 16px). This value is used to calculate relative CSS units like REM and EM during conversions."
+              componentLabel="Root"
+              baseFontSize={unitState.rootFontSize}
+              handleChangeBaseFontSize={(event) =>
+                handleBaseFontSizeChange(event.target.value, "rootFontSize")
+              }
+            />
+            <BaseFontSize
+              name="base-font-size-input"
+              tipDescription="Set the base font size (default: 16px). This value is used to calculate relative CSS units like REM and EM during conversions."
+              componentLabel="Base"
+              baseFontSize={unitState.baseFontSize}
+              handleChangeBaseFontSize={(event) =>
+                handleBaseFontSizeChange(event.target.value, "baseFontSize")
+              }
+            />
+          </div>
+          <div className="flex gap-x-2">
+            <UnitInput
+              name="from-unit-input"
+              unitValue={unitState.fromUnitValue}
+              handleUnitValueChange={(event) =>
+                handleUnitValueChange(event.target.value, "fromUnitValue")
+              }
+            />
+            <UnitSelect
+              name="from-unit-select"
+              selectedItem={unitState.fromUnit}
+              selectItems={validUnitList.filter(
+                (unit) => unit !== unitState.toUnit
+              )}
+              handleUnitChange={(value) => handleUnitChange(value, "fromUnit")}
+            />
+          </div>
+          <ArrowUpDown size={20} />
+          <div className="flex gap-x-2">
+            <UnitInput
+              name="to-unit-input"
+              unitValue={unitState.toUnitValue}
+              handleUnitValueChange={(event) =>
+                handleUnitValueChange(event.target.value, "toUnitValue")
+              }
+            />
+            <UnitSelect
+              name="to-unit-select"
+              selectedItem={unitState.toUnit}
+              selectItems={validUnitList.filter(
+                (unit) => unit !== unitState.fromUnit
+              )}
+              handleUnitChange={(value) => handleUnitChange(value, "toUnit")}
+            />
+          </div>
+          <SaveToHistoryButton
+            handleSaveToHistoryEvent={handleSaveToHistoryConversion}
           />
-          <BaseFontSize
-            name="base-font-size-input"
-            tipDescription="Set the base font size (default: 16px). This value is used to calculate relative CSS units like REM and EM during conversions."
-            componentLabel="Base"
-            baseFontSize={unitState.baseFontSize}
-            handleChangeBaseFontSize={(event) =>
-              handleBaseFontSizeChange(event.target.value, "baseFontSize")
-            }
+          <ConversionInfo
+            {...getConvertionInfo({
+              from: unitState.fromUnit,
+              to: unitState.toUnit,
+            })}
           />
-        </div>
-        <div className="flex gap-x-2">
-          <UnitInput
-            name="from-unit-input"
-            unitValue={unitState.fromUnitValue}
-            handleUnitValueChange={(event) =>
-              handleUnitValueChange(event.target.value, "fromUnitValue")
-            }
-          />
-          <UnitSelect
-            name="from-unit-select"
-            selectedItem={unitState.fromUnit}
-            selectItems={validUnitList.filter(
-              (unit) => unit !== unitState.toUnit
-            )}
-            handleUnitChange={(value) => handleUnitChange(value, "fromUnit")}
-          />
-        </div>
-        <ArrowUpDown size={20} />
-        <div className="flex gap-x-2">
-          <UnitInput
-            name="to-unit-input"
-            unitValue={unitState.toUnitValue}
-            handleUnitValueChange={(event) =>
-              handleUnitValueChange(event.target.value, "toUnitValue")
-            }
-          />
-          <UnitSelect
-            name="to-unit-select"
-            selectedItem={unitState.toUnit}
-            selectItems={validUnitList.filter(
-              (unit) => unit !== unitState.fromUnit
-            )}
-            handleUnitChange={(value) => handleUnitChange(value, "toUnit")}
-          />
-        </div>
-        <SaveToHistoryButton handleSaveToHistoryEvent={handleSaveToHistoryConversion} />
-        <ConversionInfo {...getConvertionInfo({from:unitState.fromUnit,to:unitState.toUnit})} />
         </section>
       </MainLayout>
       <Toaster />
