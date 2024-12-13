@@ -57,9 +57,9 @@ const ConversionItem: React.FC<ConversionItemProps> = (props) => (
 );
 
 const BaseFontSize: React.FC<BaseFontSizeProps> = (props) => (
-  <p className="px-2 py-1 text-sm text-background font-light bg-foreground rounded-md">
+  <p className="text-sm font-light">
     {props.baseType} Font Size:{" "}
-    <span className="font-semibold">{(props.baseFontSize === "") ? 0 : props.baseFontSize}PX</span>
+    <span className="px-2 py-1 font-light border border-input rounded-md">{(props.baseFontSize === "") ? 0 : props.baseFontSize}PX</span>
   </p>
 );
 
