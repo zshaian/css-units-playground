@@ -4,12 +4,12 @@ import type { UnitState } from "@/types";
 import CopyButton from "./CopyButton";
 
 interface ConversionItemProps {
-  value: number;
+  value: number | string;
   unit: string;
 }
 
 interface BaseFontSizeProps {
-  baseFontSize: number;
+  baseFontSize: number | string;
   baseType: "Root" | "Base";
 }
 
@@ -48,7 +48,7 @@ const ConversionHistory: React.FC<ConversionHistoryProps> = (props) => {
 const ConversionItem: React.FC<ConversionItemProps> = (props) => (
   <div className="py-1 px-2 flex items-center gap-x-2 border border-input rounded-md">
     <ScrollArea className="max-w-[4ch] py-2">
-      <span className="inline-block font-bold uppercase">{props.value}</span>
+      <span className="inline-block font-bold uppercase">{(props.value === "") ? 0 : props.value}</span>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
     <span className="font-bold uppercase">{props.unit}</span>
@@ -59,7 +59,7 @@ const ConversionItem: React.FC<ConversionItemProps> = (props) => (
 const BaseFontSize: React.FC<BaseFontSizeProps> = (props) => (
   <p className="px-2 py-1 text-sm text-background font-light bg-foreground rounded-md">
     {props.baseType} Font Size:{" "}
-    <span className="font-semibold">{props.baseFontSize}PX</span>
+    <span className="font-semibold">{(props.baseFontSize === "") ? 0 : props.baseFontSize}PX</span>
   </p>
 );
 
