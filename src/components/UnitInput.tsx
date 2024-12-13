@@ -12,7 +12,7 @@ const UnitInput:React.FC<UnitInputProps> = ({name,unitValue,handleUnitValueChang
       <Input
         type="number"
         name={name}
-        value={(unitValue === 0) ? "" : unitValue}
+        value={unitValue}
         onChange={handleUnitValueChange}
         className="no-spinner w-[15rem] border-none font-semibold text-2xl md:text-2xl"
       />

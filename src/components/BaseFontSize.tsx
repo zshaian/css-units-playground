@@ -27,7 +27,7 @@ const BaseFontSize: React.FC<BaseFontSizeProps> = ({
         name={name}
         className="no-spinner w-[5.5ch]"
         type="number"
-        value={(baseFontSize === 0) ? "" : baseFontSize}
+        value={baseFontSize}
         onChange={handleChangeBaseFontSize}
       />
       <span>Pixel</span>

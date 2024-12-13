@@ -27,11 +27,17 @@ function App() {
     value: string,
     name: "baseFontSize" | "rootFontSize"
   ) => {
-    const parsedNewBaseFontSize = parseFloat(value) || 0;
+    const parsedNewBaseFontSize = parseFloat(value);
+
+    if(isNaN(parsedNewBaseFontSize)){
+      setUnitState((previousState) => ({...previousState,[name]:""}))
+      return;
+    }
+
     setUnitState((previousState) => ({
       ...previousState,
-      fromUnitValue: 0,
-      toUnitValue: 0,
+      fromUnitValue: "",
+      toUnitValue: "",
       [name]: parsedNewBaseFontSize,
     }));
   };
@@ -40,15 +46,21 @@ function App() {
     newUnitValue: string,
     name: "fromUnitValue" | "toUnitValue"
   ) => {
-    const parsedNewUnitValue = parseFloat(newUnitValue) || 0;
+    const parsedNewUnitValue = parseFloat(newUnitValue);
+
+    if(isNaN(parsedNewUnitValue)){ 
+      setUnitState((previousState) => ({...previousState,fromUnitValue:"",toUnitValue:""}));
+      return;
+    }
+
     const isFromUnitValue = name === "fromUnitValue";
 
     setUnitState((previousState) => {
       const convertedUnitValue = roundownToTwoDecimals(
         convertUnits({
          value: parsedNewUnitValue,
-          baseFontSize: previousState.baseFontSize,
-          rootFontSize: previousState.rootFontSize,
+          baseFontSize: (previousState.baseFontSize === "") ? 0 : previousState.baseFontSize as number,
+          rootFontSize: (previousState.rootFontSize === "") ? 0 : previousState.rootFontSize as number,
           fromUnit: isFromUnitValue
             ? previousState.fromUnit
             : previousState.toUnit,
@@ -71,8 +83,8 @@ function App() {
   ) => {
     setUnitState((previousState) => ({
       ...previousState,
-      toUnitValue: 0,
-      fromUnitValue: 0,
+      toUnitValue: "",
+      fromUnitValue: "",
       [name]: newUnitValue,
     }));
   };
