@@ -7,12 +7,12 @@ interface ThemeProviderProps {
 type ValidUnits = "rem" | "em" | "%" | "px";
 
 interface UnitState {
-  fromUnitValue: number;
+  fromUnitValue: number | string;
   fromUnit: ValidUnits;
-  toUnitValue: number;
+  toUnitValue: number | string;
   toUnit: ValidUnits;
-  rootFontSize: number;
-  baseFontSize: number;
+  rootFontSize: number | string;
+  baseFontSize: number | string;
 }
 
 interface ConvertionInfoValue {
