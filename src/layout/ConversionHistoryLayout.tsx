@@ -31,7 +31,9 @@ const ConversionHistoryLayout: React.FC<ConversionHistoryLayoutProps> = (
       <DrawerContent>
         <DrawerTitle className="sr-only">History</DrawerTitle>
         <DrawerDescription className="sr-only">this is a collection of conversion history</DrawerDescription>
-        {props.children}
+        <ScrollArea className="h-[60vh]">
+          {props.children}
+        </ScrollArea>
       </DrawerContent>
     </Drawer>
   );
