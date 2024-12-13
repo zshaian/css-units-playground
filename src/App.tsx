@@ -17,10 +17,12 @@ import ThemeProvider from "./components/theme/ThemeProvider";
 import Navbar from "./components/Navbar";
 import NavbarLayout from "./layout/NavbarLayout";
 import { Toaster } from "./components/ui/toaster";
+import { useToast } from "./hooks/useToast";
 
 function App() {
   const [unitState, setUnitState] = useState<UnitState>(INITIAL_UNIT_STATE_VALUE);
   const [conversionHistory,addNewHistoryConversion] = useConversionHistory();
+  const { toast } = useToast();
   const validUnitList: ValidUnits[] = ["px", "rem", "em", "%"];
 
   const handleBaseFontSizeChange = (
@@ -89,6 +91,17 @@ function App() {
     }));
   };
 
+  const handleSaveToHistoryConversion = () => {
+    try {
+      addNewHistoryConversion(unitState);
+      toast({description:"Conversion Value is Added to History"})
+    }
+    catch(error){
+      console.error(error);
+      toast({description:"Failed to Save Conversion Value to History.",variant:"destructive"});
+    }
+  }
+
   return (
     <>
       <MainLayout>
@@ -156,7 +169,7 @@ function App() {
             handleUnitChange={(value) => handleUnitChange(value, "toUnit")}
           />
         </div>
-        <SaveToHistoryButton handleSaveToHistoryEvent={() => addNewHistoryConversion(unitState)} />
+        <SaveToHistoryButton handleSaveToHistoryEvent={handleSaveToHistoryConversion} />
         <ConversionInfo {...getConvertionInfo({from:unitState.fromUnit,to:unitState.toUnit})} />
         </section>
       </MainLayout>
