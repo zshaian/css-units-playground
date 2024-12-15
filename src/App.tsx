@@ -23,7 +23,7 @@ function App() {
   const [unitState, setUnitState] = useState<UnitState>(
     INITIAL_UNIT_STATE_VALUE
   );
-  const [conversionHistory, addNewHistoryConversion] = useConversionHistory();
+  const [conversionHistory, setConversionHistory] = useConversionHistory();
   const { toast } = useToast();
   const validUnitList: ValidUnits[] = ["px", "rem", "em", "%"];
 
@@ -105,7 +105,10 @@ function App() {
 
   const handleSaveToHistoryConversion = () => {
     try {
-      addNewHistoryConversion(unitState);
+      setConversionHistory((previousHistory) => [
+        ...previousHistory,
+        unitState,
+      ]);
       toast({ description: "Conversion Value is Added to History" });
     } catch (error) {
       console.error(error);
@@ -116,11 +119,27 @@ function App() {
     }
   };
 
+  const handleClearConversionHistory = () => {
+    try {
+      setConversionHistory(() => []);
+      toast({ description: "Conversion History Has Been Cleared." });
+    } catch (error) {
+      console.error(error);
+      toast({
+        description: "Failed to Clear the Conversion History.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <>
       <MainLayout>
         <ConversionHistoryLayout>
-          <ConversionHistory conversionHistoryList={conversionHistory} />
+          <ConversionHistory
+            conversionHistoryList={conversionHistory}
+            handleClearConversionHistory={handleClearConversionHistory}
+          />
         </ConversionHistoryLayout>
         <section className="flex flex-col items-center flex-1 gap-y-8">
           <NavbarLayout>

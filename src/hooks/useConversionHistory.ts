@@ -4,26 +4,21 @@ import type { UnitState } from "@/types";
 
 const useConversionHistory = (): [
   UnitState[],
-  (newConversionValue: UnitState) => void
+  React.Dispatch<React.SetStateAction<UnitState[]>>
 ] => {
   const localConversionHistory = localStorage.getItem(STORAGE_KEY);
   const initialConversionHistory = localConversionHistory
     ? JSON.parse(localConversionHistory)
     : [];
-  const [conversionHistory, setConversionHistory] = useState<
-    UnitState[]
-  >(initialConversionHistory);
-  const handleAddNewConversion = (newConversionValue: UnitState) => {
-    setConversionHistory((previousHistory) => [
-      ...previousHistory,
-      newConversionValue,
-    ]);
-  };
+  const [conversionHistory, setConversionHistory] = useState<UnitState[]>(
+    initialConversionHistory
+  );
+
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(conversionHistory));
   }, [conversionHistory]);
 
-  return [conversionHistory, handleAddNewConversion];
+  return [conversionHistory, setConversionHistory];
 };
 
 export { useConversionHistory };
