@@ -7,7 +7,6 @@ import MainLayout from "./layout/MainLayout";
 import { ArrowUpDown } from "lucide-react";
 import { useState } from "react";
 import type { UnitState, ValidUnits } from "./types";
-import { convertUnits, roundownToTwoDecimals } from "./utils/convertUnits";
 import { INITIAL_UNIT_STATE_VALUE } from "./constants/initialState";
 import { getConvertionInfo } from "./utils/convertionInfo";
 import ConversionHistoryLayout from "./layout/ConversionHistoryLayout";
@@ -18,6 +17,7 @@ import Navbar from "./components/Navbar";
 import NavbarLayout from "./layout/NavbarLayout";
 import { Toaster } from "./components/ui/toaster";
 import { useToast } from "./hooks/useToast";
+import unitFlip from "unitflip";
 
 function App() {
   const [unitState, setUnitState] = useState<UnitState>(
@@ -64,24 +64,21 @@ function App() {
     const isFromUnitValue = name === "fromUnitValue";
 
     setUnitState((previousState) => {
-      const convertedUnitValue = roundownToTwoDecimals(
-        convertUnits({
-          value: parsedNewUnitValue,
-          baseFontSize:
-            previousState.baseFontSize === ""
-              ? 0
-              : (previousState.baseFontSize as number),
-          rootFontSize:
-            previousState.rootFontSize === ""
-              ? 0
-              : (previousState.rootFontSize as number),
-          fromUnit: isFromUnitValue
-            ? previousState.fromUnit
-            : previousState.toUnit,
-          toUnit: isFromUnitValue
-            ? previousState.toUnit
-            : previousState.fromUnit,
-        })
+      const sourceUnit = isFromUnitValue
+        ? previousState.fromUnit
+        : previousState.toUnit;
+      const targetUnit = isFromUnitValue
+        ? previousState.toUnit
+        : previousState.fromUnit;
+      const convertedUnitValue = unitFlip(
+        parsedNewUnitValue,
+        sourceUnit,
+        targetUnit,
+        2,
+        {
+          rootFontSize: (previousState.rootFontSize || 0) as number,
+          baseFontSize: (previousState.baseFontSize || 0) as number,
+        }
       );
       return {
         ...previousState,
