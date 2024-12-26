@@ -25,7 +25,16 @@ function App() {
   );
   const [conversionHistory, setConversionHistory] = useConversionHistory();
   const { toast } = useToast();
-  const validUnitList: ValidUnits[] = ["px", "rem", "em", "%"];
+  const validUnitList: ValidUnits[] = [
+    "px",
+    "rem",
+    "em",
+    "%",
+    "vw",
+    "vh",
+    "vmin",
+    "vmax",
+  ];
 
   const handleBaseFontSizeChange = (
     value: string,

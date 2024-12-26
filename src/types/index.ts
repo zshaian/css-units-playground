@@ -4,7 +4,7 @@ interface ThemeProviderProps {
   children: React.ReactNode;
 }
 
-type ValidUnits = "rem" | "em" | "%" | "px";
+type ValidUnits = "rem" | "em" | "%" | "px" | "vw" | "vh" | "vmin" | "vmax";
 
 interface UnitState {
   fromUnitValue: number | string;
