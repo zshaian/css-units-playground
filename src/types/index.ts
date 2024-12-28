@@ -15,24 +15,19 @@ interface UnitState {
   baseFontSize: number | string;
 }
 
-interface ConvertionInfoValue {
-  fromUnit: ValidUnits;
-  toUnit: ValidUnits;
-  formula: string;
-  calculation: string;
+interface ConvertionFormulaValue {
+  formula:string;
+  calculation:string;
 }
 
-type NoConvertionKeys = `rem->rem` | `em->em` | `px->px` | `%->%`;
-type ConvertionInfoKeys = Exclude<
-  `${ValidUnits}->${ValidUnits}`,
-  NoConvertionKeys
->;
-type ConvertionInfoProps = Record<ConvertionInfoKeys, ConvertionInfoValue>;
+interface ConvertionInfoValue extends ConvertionFormulaValue {
+  fromUnit: ValidUnits;
+  toUnit: ValidUnits;
+}
 
 export type {
   UnitState,
-  ConvertionInfoProps,
-  ConvertionInfoKeys,
+  ConvertionFormulaValue,
   ConvertionInfoValue,
   ValidUnits,
   ThemeProviderProps,
