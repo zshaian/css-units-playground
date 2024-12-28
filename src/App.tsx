@@ -184,9 +184,7 @@ function App() {
             <UnitSelect
               name="from-unit-select"
               selectedItem={unitState.fromUnit}
-              selectItems={validUnitList.filter(
-                (unit) => unit !== unitState.toUnit
-              )}
+              selectItems={validUnitList}
               handleUnitChange={(value) => handleUnitChange(value, "fromUnit")}
             />
           </div>
@@ -202,9 +200,7 @@ function App() {
             <UnitSelect
               name="to-unit-select"
               selectedItem={unitState.toUnit}
-              selectItems={validUnitList.filter(
-                (unit) => unit !== unitState.fromUnit
-              )}
+              selectItems={validUnitList}
               handleUnitChange={(value) => handleUnitChange(value, "toUnit")}
             />
           </div>
